@@ -100,14 +100,14 @@ end
 
     for m = 1:prm.M
         filename = sprintf ('param_Ranjan_%d_%s_%d.csv', m, prm.name, it);
-        writematrix(save_param(:,:,m), fullfile (here, filePaht, 'results/param', filename));
+        writematrix(save_param(:,:,m), fullfile (here, filePath, 'results/param', filename));
 
         filename = sprintf ('cov_Ranjan_%d_%s_%d.csv', m, prm.name, it);
         writematrix (save_cov(:,:,m), fullfile (here, filePath, 'results/param', filename));
     end
 
     filename = sprintf ('time_Ranjan_%s_%d.csv', prm.name, it);
-    writematrix(time, fullfile (here, 'results/time', filename));
+    writematrix(time, fullfile (here, filePath, 'results/time', filename));
 
 end
 
