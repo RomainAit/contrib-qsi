@@ -5,7 +5,7 @@
 
 function misclassification(funct_struct, config, id, filePath)
 
-disp('Run number '+str(id))
+disp("Run number "+int2str(id))
 
 if nargin < 4
     filePath = 'data';
@@ -19,7 +19,7 @@ dim_tot = prm.dim_x+prm.dim_s;
 
 for it = id
     %Initial design
-    file_grid = sprintf ('grid_%s_%d_init.csv', prm.name, it);
+    file_grid = sprintf ('doe_init_%s_%d_init.csv', prm.name, it);
     di = readmatrix(fullfile(here, filePath, 'doe_init', file_grid));
     zi = f(di);
 

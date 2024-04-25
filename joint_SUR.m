@@ -2,15 +2,19 @@
 %Compute sequential DoE using joint SUR criterion
 %DoE and models parameters are save in /results
 
-function joint_SUR(funct_struct, config, id)
+function joint_SUR(funct_struct, config, it, filePath)
+
+disp("Run number "+int2str(it))
+
+if nargin < 4
+    filePath = 'data';
+end
 
 [prm, f, s_trnsf] = funct_struct();
 config = config();
 here = fileparts(mfilename('fullpath'));
 
 dim_tot = prm.dim_x+prm.dim_s;
-
-for it = id
 
     %If size output = 1, initizalize Gaussian quadrature
     if prm.M == 1
@@ -19,8 +23,8 @@ for it = id
     end
 
     %Initial design
-    file_grid = sprintf ('grid_%s_%d_init.csv', prm.name, it);
-    di = readmatrix(fullfile(here, 'grid', file_grid));
+    file_grid = sprintf ('doe_init_%s_%d_init.csv', prm.name, it);
+    di = readmatrix(fullfile(here, filePath, 'doe_init', file_grid));
     zi = f(di);
 
     % Create dataframes
@@ -34,7 +38,6 @@ for it = id
     time = [];
 
     for t = 1:config.T
-
         tic
 
         dt = stk_sampling_randunif(config.pts_x*config.pts_s,dim_tot,prm.BOX);
@@ -165,19 +168,18 @@ for it = id
     end
 
     filename = sprintf ('doe_joint_%s_%s_%d.csv',config.critName, prm.name, it);
-    writematrix (double (dn), fullfile (here, 'results/design', filename));
+    writematrix (double (dn), fullfile (here, filePath, 'results/design', filename));
 
     for m = 1:prm.M
         filename = sprintf ('param_joint_%s_%d_%s_%d.csv', config.critName, m, prm.name, it);
-        writematrix (save_param(:,:,m), fullfile (here, 'results/param', filename));
+        writematrix (save_param(:,:,m), fullfile (here, filePath, 'results/param', filename));
 
         filename = sprintf ('cov_joint_%s_%d_%s_%d.csv', config.critName, m, prm.name, it);
-        writematrix (save_cov(:,:,m), fullfile (here, 'results/param', filename));
+        writematrix (save_cov(:,:,m), fullfile (here, filePath, 'results/param', filename));
     end
 
     filename = sprintf ('time_joint_%s_%s_%d.csv', config.critName, prm.name, it);
-    writematrix (time, fullfile (here, 'results/time', filename));
+    writematrix (time, fullfile (here, filePath, 'results/time', filename));
 
 end
 
-end
