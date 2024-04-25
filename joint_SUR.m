@@ -41,7 +41,7 @@ dim_tot = prm.dim_x+prm.dim_s;
         tic
 
         dt = stk_sampling_randunif(config.pts_x*config.pts_s,dim_tot,prm.BOX);
-        dt(:, prm.dim_x+1:prm.dim_x+prm.dim_s) = s_trnsf(dt(:, prm.dim_x+1:prm.dim_x+prm.dim_s));
+        %dt(:, prm.dim_x+1:prm.dim_x+prm.dim_s) = s_trnsf(dt(:, prm.dim_x+1:prm.dim_x+prm.dim_s));
 
         % Estimate and save parameters
         Model = stk_model ();
