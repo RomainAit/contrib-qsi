@@ -3,9 +3,9 @@
 %misclassification probability (equivalent to variance or entropy).
 %DoE and models parameters are save in /results
 
-function misclassification(funct_struct, config, id, filePath)
+function misclassification(funct_struct, config, it, filePath)
 
-disp("Run number "+int2str(id))
+disp("Run number "+int2str(it))
 
 if nargin < 4
     filePath = 'data';
@@ -17,7 +17,6 @@ here = fileparts(mfilename('fullpath'));
 
 dim_tot = prm.dim_x+prm.dim_s;
 
-for it = id
     %Initial design
     file_grid = sprintf ('doe_init_%s_%d_init.csv', prm.name, it);
     di = readmatrix(fullfile(here, filePath, 'doe_init', file_grid));
@@ -36,7 +35,7 @@ for it = id
 
     %loop on steps
     for t = 1:config.T
-
+        
         tic
 
         % Sample random points, uniformly distributed in X x S
@@ -93,4 +92,3 @@ for it = id
 
 end
 
-end
