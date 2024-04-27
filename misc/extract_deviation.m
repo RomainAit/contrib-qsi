@@ -4,8 +4,8 @@
 
 function extract_deviation(funct_struct, config, name, list_id)
 
-PTS_X = 2^14;
-PTS_S = 2^9;
+PTS_X = 2^12;
+PTS_S = 2^10;
 
 [prm, f, s_trnsf] = funct_struct();
 config = config();
@@ -41,7 +41,7 @@ for it = list_id
     dev = [];
 
     for j = 1:config.axT:config.T+1
-
+disp(j)
         dt = design(1:config.pts_init+j-1,:);
         zt = f(dt);
         Model = stk_model ();
