@@ -2,7 +2,7 @@
 %runs.
 
 
-function extract_deviation(funct_struct, config, name, list_id, filePath)
+function extract_deviation(funct_struct, config, name, it, filePath)
 
 disp("Run number "+int2str(it))
 
@@ -29,7 +29,6 @@ zf = f(df);
 
 trueSet = get_true_quantile_set(zf, PTS_X, PTS_S, prm.alpha, prm.const);
 
-for it = list_id
 
     file_design = sprintf('doe_%s_%s_%d.csv', name, prm.name, it);
     design = readmatrix(fullfile(here, filePath, 'results/design', file_design));
@@ -68,4 +67,3 @@ disp(j)
 
 end
 
-end
